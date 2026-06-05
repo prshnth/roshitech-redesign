@@ -1,0 +1,220 @@
+@import 'tailwindcss';
+
+/* =========================================================
+   Design tokens — Apple-inspired palette + type
+   Tailwind v4 generates utilities from these (text-ink,
+   bg-paper-2, border-line-soft, font-serif, …).
+   ========================================================= */
+@theme {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter',
+    'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+
+  --color-ink: #1d1d1f;
+  --color-ink-2: #424245;
+  --color-muted: #6e6e73;
+  --color-muted-2: #86868b;
+
+  --color-line: #d2d2d7;
+  --color-line-soft: #e8e8ed;
+
+  --color-paper: #ffffff;
+  --color-paper-2: #f5f5f7;
+  --color-paper-3: #fbfbfd;
+
+  --color-night: #0a0a0a;
+  --color-night-2: #161617;
+  --color-night-card: #1d1d1f;
+  --color-on-night: #f5f5f7;
+  --color-on-night-muted: #a1a1a6;
+
+  --color-accent: #0071e3;
+  --color-accent-press: #0077ed;
+  --color-accent-deep: #0a4dad;
+  --color-accent-sky: #6cb4ff;
+
+  /* Elevation — soft, Apple-style layered shadows.
+     Generates shadow-soft / shadow-card / shadow-float utilities
+     (and variants like hover:shadow-card). */
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.08), 0 18px 40px rgba(0, 0, 0, 0.1);
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.16);
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+@layer base {
+  :root {
+    --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+    --nav-h: 52px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 16px);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-paper);
+    line-height: 1.5;
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(0, 113, 227, 0.16);
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
+
+/* =========================================================
+   Effects & special components
+   ========================================================= */
+@layer components {
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(120deg, #0071e3 0%, #6a3df0 55%, #00b3a4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-light {
+    background: linear-gradient(180deg, #ffffff, #b9c2d0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Hero background + floating orbs */
+  .bg-hero {
+    background: linear-gradient(180deg, #fbfbfd 0%, #f0f3f8 55%, #ffffff 100%);
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.55;
+    animation: float 16s var(--ease-soft) infinite;
+  }
+  .hero-orb-1 {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle at 30% 30%, #7db9ff, transparent 70%);
+    top: -120px;
+    left: -80px;
+  }
+  .hero-orb-2 {
+    width: 460px;
+    height: 460px;
+    background: radial-gradient(circle at 70% 70%, #b89cff, transparent 70%);
+    bottom: -140px;
+    right: -60px;
+    animation-delay: -6s;
+  }
+  .hero-orb-3 {
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle at 50% 50%, #8fe3d2, transparent 70%);
+    top: 40%;
+    left: 55%;
+    opacity: 0.4;
+    animation-delay: -10s;
+  }
+
+  /* DreamBox feature mark */
+  .feature-glow {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(108, 180, 255, 0.5), transparent 65%);
+    filter: blur(30px);
+  }
+  .feature-mark {
+    background: linear-gradient(135deg, #6cb4ff, #b89cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: spin 18s linear infinite;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.8s var(--ease-soft),
+      transform 0.8s var(--ease-soft);
+    transition-delay: var(--reveal-delay, 0s);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Accordion body reveal on open */
+  details[open] .svc-body {
+    animation: reveal-body 0.4s var(--ease-soft);
+  }
+
+  /* Native select chevron (dark form) */
+  .select-dark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23a1a1a6' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+  .select-dark option {
+    color: #1d1d1f;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -25px) scale(1.06);
+  }
+  66% {
+    transform: translate(-25px, 20px) scale(0.96);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes reveal-body {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
