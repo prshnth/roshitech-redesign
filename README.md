@@ -9,7 +9,7 @@ site for Roshi Tech, Inc. Built as a modern, type-safe, mobile-first React appli
 | -------------- | --------------------------------------------------- |
 | Framework      | React 19 + TypeScript                               |
 | Build tool     | Vite                                                |
-| Routing        | TanStack Router (file-based)                         |
+| Rendering      | Single-page (in-page anchor nav)                    |
 | Styling        | Tailwind CSS v4 (CSS-first config) + design tokens   |
 | Architecture   | Atomic design (atoms → molecules → organisms → …)    |
 | Package manager | pnpm (via Corepack)                                 |
@@ -46,14 +46,12 @@ src/
 │   ├── molecules/    Composites: SectionHead, ServiceAccordion, FormField, …
 │   ├── organisms/    Full sections: Navbar, Hero, Services, Contact, Footer, …
 │   ├── templates/    Page shells: SiteLayout
-│   └── pages/        Route pages: HomePage
+│   └── pages/        Page composition: HomePage
 ├── data/             Typed content modules (all site copy lives here)
 ├── hooks/            useInView, useCountUp, useScrolled
 ├── lib/              cn() class-name helper
-├── routes/           TanStack Router route files (__root.tsx, index.tsx)
-├── routeTree.gen.ts  Auto-generated route tree (committed — do not edit)
 ├── styles.css        Tailwind import + design tokens + custom effects
-└── main.tsx          App entry (RouterProvider)
+└── main.tsx          App entry (renders SiteLayout + HomePage)
 ```
 
 All site content is data-driven: to change copy, edit the modules in `src/data/` rather than

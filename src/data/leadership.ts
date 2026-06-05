@@ -9,6 +9,9 @@ export interface Leader {
   role: string
   bio: string
   linkedInUrl: string
+  /** Optional headshot. Drop a file in `public/team/` and reference it as `/team/<file>`.
+   *  When omitted, the card falls back to the initials avatar. */
+  photo?: string
   facts: LeaderFact[]
 }
 
@@ -19,6 +22,7 @@ export const leaders: Leader[] = [
     role: 'Founder & CEO',
     bio: 'Roshi Tech, Inc. is owned and operated by Prasad Tadi, who founded the company in 1996. He brings over 20 years of experience in technical services, sales, marketing and business management across India and the USA.',
     linkedInUrl: 'https://www.linkedin.com/in/prasadtadi',
+    photo: '/team/prasad-tadi.jpg',
     facts: [
       {
         label: 'Sr. Systems Analyst (1986–1991)',
@@ -36,6 +40,7 @@ export const leaders: Leader[] = [
     role: 'COO',
     bio: 'Babitha Prasad helps lead Roshi Tech operations, supporting the company’s client relationships, administration and delivery coordination.',
     linkedInUrl: 'https://www.linkedin.com/in/babitha-prasad-07456512',
+    photo: '/team/babitha-prasad.jpg',
     facts: [
       { label: 'Operations leadership' },
       { label: 'Client relationship support' },

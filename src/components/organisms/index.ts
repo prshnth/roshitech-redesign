@@ -1,5 +1,6 @@
 export { Navbar } from './Navbar'
 export { Hero } from './Hero'
+export { CompanyCarousel } from './CompanyCarousel'
 export { StatsBand } from './StatsBand'
 export { About } from './About'
 export { Services } from './Services'

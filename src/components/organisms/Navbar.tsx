@@ -35,12 +35,6 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
-          <Button href="#contact" className="px-5 py-2 text-[14px]">
-            Request information
-          </Button>
-        </div>
-
         <button
           type="button"
           className="relative h-10 w-10 md:hidden"

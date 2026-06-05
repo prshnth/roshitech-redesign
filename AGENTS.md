@@ -6,7 +6,7 @@ when conventions change.
 ## What this is
 
 A single-page marketing site for Roshi Tech, Inc. — an Apple-inspired redesign of roshitech.com.
-React 19 + TypeScript + Vite + TanStack Router + Tailwind CSS v4, organized with atomic design.
+React 19 + TypeScript + Vite + Tailwind CSS v4, organized with atomic design.
 The visual design and all original site copy are intentional and should be preserved.
 
 ## Commands
@@ -30,7 +30,7 @@ Components live in `src/components/<layer>/` and compose strictly upward. A laye
 the layers below it, never from the same layer's siblings' internals or from a layer above:
 
 ```
-atoms  →  molecules  →  organisms  →  templates  →  pages  →  routes
+atoms  →  molecules  →  organisms  →  templates  →  pages
 ```
 
 - **atoms** — styling/markup primitives (`Button`, `Container`, `Section`, `Logo`, `Eyebrow`,
@@ -80,14 +80,12 @@ Conventions:
   separators (the "1996 — Founded" stat must read `1996`, not `1,996`).
 - Respect `prefers-reduced-motion`; the base layer already disables animation/reveal for it.
 
-## Routing
+## Rendering
 
-File-based via `@tanstack/router-plugin` (configured in `vite.config.ts`). Routes are in
-`src/routes/` (`__root.tsx` renders `SiteLayout` + `<Outlet/>`; `index.tsx` renders `HomePage`).
-
-`src/routeTree.gen.ts` is **auto-generated** by the plugin on `dev`/`build` and is **committed** so
-that `tsc -b` (which runs before `vite build`) succeeds on a clean clone and on Vercel. Do not edit
-it by hand; it regenerates whenever you add or change a route.
+This is a single-page site with no router. `src/main.tsx` mounts `SiteLayout` (Navbar + main +
+Footer) wrapping `HomePage`, which composes the organisms top to bottom. In-page navigation is
+plain hash anchors (`#services`, `#contact`, …) resolved by `scroll-behavior: smooth`. If the site
+ever needs multiple URLs, reintroduce a router at the `pages`/entry layer.
 
 ## Gotchas
 

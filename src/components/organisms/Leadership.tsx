@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { Container, Reveal, Section } from '@/components/atoms'
 import { SectionHead } from '@/components/molecules'
 import { leaders } from '@/data/leadership'
+import { cn } from '@/lib/cn'
 
 function LinkedInIcon() {
   return (
@@ -10,6 +12,45 @@ function LinkedInIcon() {
         d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0Z"
       />
     </svg>
+  )
+}
+
+interface AvatarProps {
+  photo?: string
+  name: string
+  initials: string
+}
+
+/** Headshot with a graceful fallback. The initials tile always renders underneath;
+ *  the photo fades in over it only once it genuinely decodes (naturalWidth > 0), so a
+ *  missing file — which the SPA rewrite serves as index.html, not a clean 404 — never
+ *  shows a broken image. Drop real files in `public/team/` and they take over. */
+function Avatar({ photo, name, initials }: AvatarProps) {
+  const [loaded, setLoaded] = useState(false)
+
+  return (
+    <div className="relative h-20 w-20 shrink-0 sm:h-24 sm:w-24">
+      <div
+        aria-hidden="true"
+        className="grid h-full w-full place-items-center rounded-2xl bg-linear-to-br from-accent to-[#e0894a] text-[24px] font-bold text-white sm:text-[28px]"
+      >
+        {initials}
+      </div>
+      {photo && (
+        <img
+          src={photo}
+          alt={name}
+          loading="lazy"
+          onLoad={(e) => {
+            if (e.currentTarget.naturalWidth > 0) setLoaded(true)
+          }}
+          className={cn(
+            'absolute inset-0 h-full w-full rounded-2xl object-cover transition-opacity duration-500',
+            loaded ? 'opacity-100' : 'opacity-0',
+          )}
+        />
+      )}
+    </div>
   )
 }
 
@@ -28,11 +69,12 @@ export function Leadership() {
         <Reveal>
           <div className="mt-10 grid gap-5">
             {leaders.map((leader) => (
-              <div className="grid h-full gap-6 rounded-3xl border border-line-soft bg-paper-3 p-6 sm:p-8">
+              <div
+                key={leader.name}
+                className="grid h-full gap-6 rounded-3xl border border-line-soft bg-paper-3 p-6 sm:p-8"
+              >
                 <div className="flex items-center gap-5">
-                  <div className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-linear-to-br from-accent to-[#6a3df0] text-[24px] font-bold text-white sm:h-24 sm:w-24 sm:text-[28px]">
-                    {leader.initials}
-                  </div>
+                  <Avatar photo={leader.photo} name={leader.name} initials={leader.initials} />
                   <div>
                     <div className="flex items-center gap-3">
                       <h3 className="text-[22px] font-semibold text-ink">{leader.name}</h3>

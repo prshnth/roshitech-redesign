@@ -28,7 +28,7 @@ function Blocks({ blocks }: { blocks: ContentBlock[] }) {
 export function ServiceAccordion({ service }: { service: Service }) {
   return (
     <details className="group rounded-2xl border border-line-soft bg-paper transition-colors duration-300 hover:border-line open:border-line open:shadow-soft">
-      <summary className="flex cursor-pointer list-none items-center gap-4 p-5 [&::-webkit-details-marker]:hidden">
+      <summary className="flex min-h-[84px] cursor-pointer list-none items-center gap-4 p-5 [&::-webkit-details-marker]:hidden">
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-paper-2 text-[20px] text-accent transition-colors duration-300 group-open:bg-accent group-open:text-white">
           {service.icon}
         </span>

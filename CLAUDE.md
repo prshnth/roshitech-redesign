@@ -13,7 +13,8 @@ in **AGENTS.md** — read it first:
 - Components follow atomic design (`src/components/{atoms,molecules,organisms,templates,pages}`)
   and compose strictly upward.
 - Styling is Tailwind v4 CSS-first; tokens and custom effects are in `src/styles.css`. Remember
-  gradients are `bg-linear-*` (v4), and `src/routeTree.gen.ts` is generated + committed.
+  gradients are `bg-linear-*` (v4). The site is a single page (no router) — `main.tsx` renders
+  `SiteLayout` + `HomePage` directly.
 
 ## Previewing
 

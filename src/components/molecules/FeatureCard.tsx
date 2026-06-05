@@ -7,10 +7,12 @@ export function FeatureCard() {
       href={externalLinks.dreambox}
       target="_blank"
       rel="noopener"
-      className="group relative grid items-center gap-6 overflow-hidden rounded-3xl bg-linear-to-br from-night to-[#1a1f2e] p-8 text-on-night transition duration-300 hover:-translate-y-1 hover:shadow-float sm:grid-cols-[1.2fr_0.8fr] sm:p-12"
+      className="group relative grid items-center gap-6 overflow-hidden rounded-3xl bg-linear-to-br from-night to-[#2c2118] p-8 text-on-night transition duration-300 hover:-translate-y-1 hover:shadow-float sm:grid-cols-[1.2fr_0.8fr] sm:p-12"
     >
       <div>
-        <p className="font-serif text-[15px] italic text-accent-sky">Featured product</p>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-accent-sky">
+          Featured product
+        </p>
         <h3 className="mt-2 text-[clamp(1.6rem,3.4vw,2.3rem)] font-bold tracking-[-0.02em] text-on-night">
           DreamBox
         </h3>

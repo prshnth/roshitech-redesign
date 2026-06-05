@@ -7,6 +7,10 @@ export const aboutLead: string[] = [
 
 export const aboutPoints: AboutPoint[] = [
   {
+    title: 'Built for an AI-first era',
+    desc: 'We bring AI and its best practices into the services we deliver — and partner with teams building AI-first products.',
+  },
+  {
     title: 'Real outcomes, not slideware',
     desc: 'Our work is based on real business issues to produce tangible, bottom-line outcomes.',
   },

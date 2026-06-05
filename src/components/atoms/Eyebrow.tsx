@@ -7,12 +7,12 @@ interface EyebrowProps {
   className?: string
 }
 
-/** Serif-italic kicker shown above section titles. */
+/** Uppercase letter-spaced kicker shown above section titles. */
 export function Eyebrow({ children, light, className }: EyebrowProps) {
   return (
     <p
       className={cn(
-        'font-serif text-[15px] italic',
+        'text-[12px] font-semibold uppercase tracking-[0.14em]',
         light ? 'text-accent-sky' : 'text-accent',
         className,
       )}
