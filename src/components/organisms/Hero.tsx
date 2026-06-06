@@ -3,14 +3,14 @@ import { Button, Container, Reveal } from '@/components/atoms'
 /** Full-height landing hero with a full-width headline and CTAs. */
 export function Hero() {
   return (
-    <section id="top" className="bg-hero relative flex min-h-screen items-center overflow-hidden">
+    <section id="top" className="bg-hero relative flex flex-1 items-center overflow-hidden">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <span className="hero-orb hero-orb-1" />
         <span className="hero-orb hero-orb-2" />
         <span className="hero-orb hero-orb-3" />
       </div>
 
-      <Container className="relative py-32">
+      <Container className="relative pb-6 pt-16">
         <Reveal className="max-w-5xl">
           <div className="inline-flex items-center gap-4 rounded-2xl border border-[#d9ad45]/50 bg-[#fff8e6]/80 px-5 py-3 shadow-soft backdrop-blur">
             <span className="bg-linear-to-br from-[#e6b32e] via-[#c2410c] to-[#9a3412] bg-clip-text font-serif text-[clamp(2.75rem,7vw,3.5rem)] font-bold leading-[1.1] text-transparent">

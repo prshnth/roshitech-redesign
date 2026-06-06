@@ -1,7 +1,7 @@
 import type { Service } from './types'
 
 /**
- * The twelve services offered by Roshi Tech, with their full descriptions.
+ * The services offered by Roshi Tech, with their full descriptions.
  * Order matches the original site's featured ordering.
  */
 export const services: Service[] = [
@@ -241,6 +241,17 @@ export const services: Service[] = [
           'Trained Fidelity on Rational Tools and their use in Integrated Development Environments',
           'Courses on ClearCase, ClearQuest, SVN, CVS, AccuRev, StarBase and using Maven for Build Management',
         ],
+      },
+    ],
+  },
+  {
+    id: 'salesforce',
+    name: 'Salesforce Solutions That Drive Business Growth',
+    icon: '◒',
+    blocks: [
+      {
+        type: 'p',
+        text: 'We help organizations maximize the value of Salesforce through strategic consulting, implementation, integration, and ongoing support. From Sales Cloud and Service Cloud to Revenue Cloud, AI, and custom platform development, our team delivers scalable solutions that improve customer experiences, streamline operations, and accelerate business outcomes.',
       },
     ],
   },

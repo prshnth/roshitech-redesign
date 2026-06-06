@@ -16,8 +16,10 @@ import {
 export function HomePage() {
   return (
     <>
-      <Hero />
-      <CompanyCarousel />
+      <div className="flex min-h-screen flex-col">
+        <Hero />
+        <CompanyCarousel />
+      </div>
       <StatsBand />
       <About />
       <Leadership />
