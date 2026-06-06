@@ -22,12 +22,13 @@ interface ActionProps extends BaseProps {
   href?: undefined
   type?: 'button' | 'submit' | 'reset'
   onClick?: () => void
+  disabled?: boolean
 }
 
 export type ButtonProps = LinkProps | ActionProps
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium transition duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2'
+  'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium transition duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60'
 
 const variants: Record<Variant, string> = {
   primary: 'bg-accent text-white shadow-soft hover:bg-accent-press hover:shadow-card',
@@ -59,7 +60,13 @@ export function Button(props: ButtonProps) {
   }
 
   return (
-    <button className={classes} type={props.type ?? 'button'} onClick={props.onClick} aria-label={ariaLabel}>
+    <button
+      className={classes}
+      type={props.type ?? 'button'}
+      onClick={props.onClick}
+      aria-label={ariaLabel}
+      disabled={props.disabled}
+    >
       {children}
     </button>
   )

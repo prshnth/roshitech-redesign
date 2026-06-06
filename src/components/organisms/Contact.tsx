@@ -5,11 +5,57 @@ import { contact, referralOptions, serviceOptions } from '@/data/site'
 
 /** Dark contact section: company details + inquiry form. */
 export function Contact() {
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [statusMessage, setStatusMessage] = useState('')
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSent(true)
+    const form = event.currentTarget
+
+    if (!form.checkValidity()) {
+      form.reportValidity()
+      return
+    }
+
+    const formData = new FormData(form)
+    const name = String(formData.get('name') ?? '')
+    const email = String(formData.get('email') ?? '')
+    const company = String(formData.get('company') ?? '')
+    const service = String(formData.get('service') ?? '')
+    const referral = String(formData.get('referral') ?? '')
+    const message = String(formData.get('message') ?? '')
+
+    setStatus('sending')
+    setStatusMessage('')
+
+    try {
+      const response = await fetch('/api/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, company, service, referral, message }),
+      })
+
+      if (!response.headers.get('content-type')?.includes('application/json')) {
+        throw new Error('The contact endpoint is not running PHP on this server.')
+      }
+
+      const result = (await response.json()) as { ok?: boolean; message?: string }
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || 'Unable to send message.')
+      }
+
+      form.reset()
+      setStatus('sent')
+      setStatusMessage('Thanks — your message has been sent.')
+    } catch (error) {
+      setStatus('error')
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : 'Unable to send message. Please email info@roshitech.com.',
+      )
+    }
   }
 
   return (
@@ -36,6 +82,11 @@ export function Contact() {
               <ContactDetail label="Phone">
                 <a href={contact.phoneHref} className="transition-colors hover:text-accent-sky">
                   {contact.phone}
+                </a>
+              </ContactDetail>
+              <ContactDetail label="Email">
+                <a href={contact.emailHref} className="transition-colors hover:text-accent-sky">
+                  {contact.email}
                 </a>
               </ContactDetail>
               <ContactDetail label="Fax">{contact.fax}</ContactDetail>
@@ -74,10 +125,17 @@ export function Contact() {
                 />
               </div>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button type="submit">Send message</Button>
-                {sent && (
-                  <p role="status" className="text-[14px] text-accent-sky">
-                    Thanks — we’ll be in touch shortly.
+                <Button type="submit" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Sending…' : 'Send message'}
+                </Button>
+                {statusMessage && (
+                  <p
+                    role="status"
+                    className={
+                      status === 'error' ? 'text-[14px] text-red-300' : 'text-[14px] text-accent-sky'
+                    }
+                  >
+                    {statusMessage}
                   </p>
                 )}
               </div>

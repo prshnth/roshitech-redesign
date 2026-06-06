@@ -16,6 +16,8 @@ export const externalLinks = {
 
 export const contact = {
   office: ['5, Castleton Court', 'Merrimack, NH, USA 03054'],
+  email: 'info@roshitech.com',
+  emailHref: 'mailto:info@roshitech.com',
   phone: '(603) 889-2211',
   phoneHref: 'tel:+16038892211',
   fax: '(270) 568-6295',
