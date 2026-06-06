@@ -29,7 +29,7 @@ export function Contact() {
     setStatusMessage('')
 
     try {
-      const response = await fetch('/api/contact.php', {
+      const response = await fetch('/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, company, service, referral, message }),
